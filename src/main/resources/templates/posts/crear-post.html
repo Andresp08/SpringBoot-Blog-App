@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container my-5">
+	
+		<h3 class="text-center" th:text="${titulo}">Titulo</h3>
+		
+		<div class="col-8 mx-auto">
+		
+			<form th:action="@{/nuevo-post}" th:object="${post}" method="POST" 
+				enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="titulo">Titulo del post</label> <input type="text"
+						class="form-control" id="titulo" placeholder="Titulo del post" 
+						th:field="*{titulo}" th:value="${titulo}">
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('titulo')}" 
+							th:errors="*{titulo}"></small>
+				</div>
+				<div class="form-group">
+					<label for="file">Imagen del post</label> 
+					<input type="file" name="file" class="form-control-file">
+				</div>
+				<div class="form-group">
+					<label for="content">Contenido del post</label>
+					<textarea type="text" rows="4" id="content" placeholder="Contenido del blog"
+						class="form-control" autocomplete="off" th:field="*{contenido}" 
+						th:value="${contenido}"></textarea>
+						<small class="text-danger"
+							th:if="${#fields.hasErrors('contenido')}" 
+							th:errors="*{contenido}"></small>
+				</div>
+				
+				<div class="form-check mb-3">
+					<input type="checkbox" class="form-check-input" id="status" th:field="*{status}" 
+					th:value="${status}">
+					<label class="form-check-label" for="status">Marca la casilla únicamente si quieres 
+					publicar el post</label>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('status')}" 
+							th:errors="*{status}"></small>
+				</div>
+				
+				<div class="form-group">
+					<select id="categoria" class="custom-select" name="categoria">
+					  <option selected disabled="disabled">Categoría</option>
+					  <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+					  th:text="${categoria.categoria}" th:field="*{categoria}"></option>
+					</select>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('categoria')}" 
+							th:errors="*{categoria}"></small>
+				</div>
+				
+				<div class="form-group">
+					<select id="usuario" class="custom-select" name="usuario">
+					  <option selected disabled="disabled">Usuarios</option>
+					  <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+					  th:text="${usuario.nombres} + ' ' + ${usuario.apellidos}"
+					  th:field="*{user}"></option>
+					</select>
+					<small class="text-danger"
+							th:if="${#fields.hasErrors('categoria')}" 
+							th:errors="*{categoria}"></small>
+				</div>
+				
+				
+				<button type="submit" class="btn btn-primary mt-4">Guardar Post</button>
+			</form>
+	
+		</div><!-- col -->
+
+	</div><!-- contenedor -->
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

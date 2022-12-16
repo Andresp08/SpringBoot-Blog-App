@@ -55,7 +55,7 @@ public class User {
 	@JoinColumn(name = "user_id")
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "user")
 	private List<Post> posts;
 	
 	public User() {}

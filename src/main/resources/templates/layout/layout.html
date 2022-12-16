@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title th:text="'SpringBoot - MVC Library' + ${titulo}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+<link rel="stylesheet" th:href="@{/css/carousel.css}" /> 
+<link th:rel="stylesheet" th:href="@{/assets/summernote/summernote-bs4.css}"/>
+<link rel="stylesheet" th:href="@{/css/footer.css}" />
+</head>
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{/}"> Soft <span>News</span>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/nuevo-post}">Crear Post</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/libros/lista-libros}">Libros</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/prestamos/crear-prestamo}">Crear Prestamo</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/autores/lista-autores}">Autores</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						th:href="@{/prestamos/lista-prestamos}">Listado de Prestamos</a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<p class="text-white">Hola Mundo</p>
+				</ul>
+
+			</div>
+		</nav>
+
+		<!-- mensajes flash -->
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+
+	</header>
+
+	<footer th:fragment="footer" class="container-fluid bg-dark py-3">
+
+		<p class="text-center text-white font-weight-bold">Todos los
+			derechos reservados</p>
+
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/assets/summernote/summernote-bs4.js}"></script>
+
+		<script>
+			$('#content').summernote({
+				height : 200
+			});
+		</script>
+
+		<script th:src="@{/js/carousel.js}"></script>
+	</footer>
+
+</body>
+</html>
