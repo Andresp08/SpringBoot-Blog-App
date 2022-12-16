@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,6 +112,28 @@ public class PostController {
 		flash.addFlashAttribute("success", "Post guardado con exito!!");
 		
 		return "redirect:/index";
+	}
+	
+	@GetMapping("/leer-post/{id}")
+	public String leerPostPorId(@PathVariable Long id, Model model, RedirectAttributes flash) {
+		
+		Post post = null;
+		if(id > 0) {
+			post = postService.findPostById(id);
+			
+			if(post == null) {
+				flash.addFlashAttribute("error", "El post no existe en la BBDD!!");
+				return "redirect:/index";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El post no existe en la BBDD!!");
+			return "redirect:/index";
+		}
+		
+		model.addAttribute("titulo", "Detalle del post " + post.getTitulo() + " ");
+		model.addAttribute("post", post);
+		
+		return "/posts/detalle-post";
 	}
 	
 }

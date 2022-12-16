@@ -5,6 +5,12 @@ body{
 	min-height: 100vh;
 }
 
+a,
+a:hover{
+	text-decoration: none;
+	color: #000;
+}
+
 input[type=checkbox] {
     transform: scale(1.5);
     accent-color: #FD841F;

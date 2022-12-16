@@ -3,16 +3,27 @@
 <head th:replace="layout/layout :: head"></head>
 <style>
 
-
-.prueba > p:not(:first-child) {
-    display: none;
+.contenido-post>p {
+	font-size: 16px !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-height: 20px;
+	max-height: 45px;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
 }
 
+.contenido-post>p:not(:first-child) {
+	display: none;
+}
 </style>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 
 	<div class="container my-5">
+	
+		<h2 class="text-center my-3" th:text="${titulo}">Titulo</h2>
 
 		<p th:if="${posts.isEmpty()}" th:text="'No hay posts para mostrar'"></p>
 
@@ -22,26 +33,35 @@
 				<div class="carousel-inner w-100 px-2" role="listbox">
 					<div th:each="post : ${posts}"
 						th:class="${post.id} == 1  ? 'carousel-item active' : 'carousel-item'">
-						<div class="col-md-4">
-							<div class="card" style="max-height: 390px; min-height: 390px;">
-								<img class=" card-img-top img-fluid"
-									src="https://opengraph.githubassets.com/e1928ebc604538d5d919dbea380499c7d0b85f23fe7e54ac674fb49067836012/OpenAPITools/openapi-generator/issues/1646">
-								<div class="card-body texto-recortado">
-									<h5 class="card-title text-center font-weight-bold" 
-										th:text="${post.titulo}">Titulo del Post</h5>
-									<div class="prueba">
-										<p class="card-text" th:utext="${post.contenido}">Contenido del Post</p>
-									</div>
-									<div class="d-flex justify-content-between">
-										<p th:text="${#dates.format(post.fechaCreacion, 'dd-MMM-yyyy')}"></p>
-										<p th:text="${post.user.nombres}"></p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- carousel -->
-				</div>
+							<a th:href="@{/leer-post/} + ${post.id}" class="col-md-4">
+								<div class="card" style="max-height: 330px; min-height: 330px;">
+									<img class=" card-img-top img-fluid"
+										src="https://opengraph.githubassets.com/e1928ebc604538d5d919dbea380499c7d0b85f23fe7e54ac674fb49067836012/OpenAPITools/openapi-generator/issues/1646">
+									<div class="card-body texto-recortado">
+										<h5 class="card-title text-center font-weight-bold text-uppercase" 
+											th:text="${post.titulo}">Titulo del Post</h5>
+										<div class="contenido-post" th:utext="${post.contenido}">
+											Contenido del Post
+										</div>
+										<div class="d-flex align-items-center justify-content-between">
+											
+											
+											<div class="d-flex flex-row align-items-center justify-content-center">
+												<i class="fa-solid fa-calendar px-2"></i>
+												<p class="m-0" th:text="${#dates.format(post.fechaCreacion, 'dd-MMM-yyyy')}"></p>
+											</div>
+											
+											<div class="d-flex flex-row align-items-center justify-content-center">
+												<i class="fa-solid fa-user px-2"></i>
+												<p class="m-0" th:text="${post.user.nombres}"></p>
+											</div>
+										</div><!-- flex -->
+									</div><!-- card-body -->
+								</div><!-- card -->
+							</a><!-- col -->
+					</div><!-- for loop -->
+				</div><!-- carousel -->
+				
 				<a class="carousel-control-prev w-auto" href="#recipeCarousel"
 					role="button" data-slide="prev"> <span
 					class="carousel-control-prev-icon bg-dark border border-dark rounded-circle"
