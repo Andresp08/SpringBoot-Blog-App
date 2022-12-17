@@ -1,27 +1,44 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 body{
 	position: relative;
 	padding-bottom: 5rem;
 	min-height: 100vh;
+	font-family: 'Poppins', sans-serif;	 
+}
+
+h1, h2{
+	color: #536162;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 28px;
 }
 
 /*Navbar*/
 .bg-fondo{
 	background-color:#17a2b8;
-    color: #285430!important;
     box-shadow: 0px 10px 40px rgb(3 19 23 / 10%);
 }
 
 .brand-text{
 	color: #FFF!important;
 	text-transform: uppercase;
-	font-weight: 900;
+	font-weight: 500;
 	font-size: 18px;
 }
 
 .brand-text span{
 	color: #FD841F;
 	letter-spacing: normal;
+	font-weight: 900!important;
 }
 
 .navbar-nav .nav-link{
@@ -40,6 +57,7 @@ input[type=checkbox] {
     accent-color: #FD841F;
 }
 
+/*Post*/
 .contenido-post>p {
 	font-size: 16px !important;
 	overflow: hidden;
@@ -78,7 +96,22 @@ input[type=checkbox] {
     font-weight: 900;
 }
 
-footer {
+.btn-success{
+	background-color: #FD841F;
+    border: #FD841F;
+    color: #FFF;
+    font-size: 15px;
+}
+
+.btn-success:hover{
+	background-color: #FD841F;
+    border: #FD841F;
+    color: #FFF;
+}
+
+.footer {
+	background-color:#17a2b8;
+   box-shadow: 0px 10px 40px rgb(3 19 23 / 10%);
    position: absolute;
    bottom: 0;
    width: 100%;

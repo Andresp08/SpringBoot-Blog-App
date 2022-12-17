@@ -1,14 +1,15 @@
 package com.co.andresfot.blog.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import com.co.andresfot.blog.model.entity.Post;
 import com.co.andresfot.blog.model.entity.User;
 import com.co.andresfot.blog.model.service.ICategoriaService;
 import com.co.andresfot.blog.model.service.IPostService;
+import com.co.andresfot.blog.model.service.IUploadFileService;
 import com.co.andresfot.blog.model.service.IUserService;
 
 @Controller
@@ -39,6 +41,9 @@ public class PostController {
 	
 	@Autowired 
 	private IUserService userService;
+	
+	@Autowired
+	private IUploadFileService uploadFileService;
 	
 	@GetMapping("")
 	public String trendingPosts(Model model) {
@@ -85,18 +90,22 @@ public class PostController {
 		}
 		
 		if(!foto.isEmpty()) {
-			Path directorioRecursos = Paths.get("src//main//resources//static/uploads");
-			String rootPath = directorioRecursos.toFile().getAbsolutePath();
+			
+			if (post.getId() != null && post.getId() > 0 && post.getImagen() != null
+					&& post.getImagen().length() > 0) {
+				uploadFileService.delete(post.getImagen());
+			}
+			
+			String uniqueFileName = null;
+			
 			try {
-				byte[] bytes = foto.getBytes();
-				Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				flash.addFlashAttribute("info", "Has subido correctamente " + foto.getOriginalFilename());
-				
-				post.setImagen(foto.getOriginalFilename());
+				uniqueFileName = uploadFileService.copy(foto);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
+			flash.addFlashAttribute("info", "Has subido correctamente '" + uniqueFileName + "'");
+			post.setImagen(uniqueFileName);
 		}
 		
 		post.setCategoria(categoria);
@@ -112,6 +121,21 @@ public class PostController {
 		flash.addFlashAttribute("success", "Post guardado con exito!!");
 		
 		return "redirect:/index";
+	}
+	
+	@GetMapping("/uploads/{filename:.+}")
+	public ResponseEntity<Resource> verImagenBlog(@PathVariable String filename){
+		Resource recurso = null;
+		
+		try {
+			recurso = uploadFileService.load(filename);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok()
+		.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+		.body(recurso); 
 	}
 	
 	@GetMapping("/leer-post/{id}")
