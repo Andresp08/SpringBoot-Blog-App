@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h3 th:text="${titulo}" class="text-center mt-5 mb-5">title</h3>
+
+		<p th:if="${posts.isEmpty()}" th:text="'No hay posts para mostrar'"></p>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-12 mx-auto">
+				<table th:if="${!posts.isEmpty()}"
+					class="table table-striped text-center table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Titulo</th>
+							<th>Contenido</th>
+							<th>Fecha creacion</th>
+							<th>Status</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="post : ${posts}">
+							<td th:text="${post.id}">Id</td>
+							<td th:text="${post.titulo}">Titulo</td>
+							<td>
+								<div class="contenido-post" th:utext="${post.contenido}"></div>
+							</td>
+							<td th:text="${#dates.format(post.fechaCreacion, 'dd-MM-yyyy')}">Fecha</td>
+							<td th:text="${post.status} ? 'Si' : 'No'"></td>
+							<td>
+								<a  class="btn btn-outline-warning" 
+									th:href="@{editar-post/} + ${post.id}"
+									th:text="'Editar'">
+								</a>
+							</td>
+							<td>
+								<a  class="btn btn-outline-danger" 
+									th:href="@{eliminar-post/} + ${post.id}"
+									th:text="'Eliminar'">
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

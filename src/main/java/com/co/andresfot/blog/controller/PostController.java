@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +35,8 @@ import com.co.andresfot.blog.model.service.IUserService;
 @RequestMapping({"", "/", "index"})
 public class PostController {
 	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private IPostService postService;
 	
@@ -54,6 +58,16 @@ public class PostController {
 		model.addAttribute("posts", posts);
 		
 		return "index";
+	}
+	
+	@GetMapping("/listado-posts")
+	public String listadoPosts(Model model) {
+		List<Post> posts = postService.findAllPosts();
+		
+		model.addAttribute("titulo", "Listado de posts");
+		model.addAttribute("posts", posts);
+		
+		return "posts/listado-posts";
 	}
 	
 	@GetMapping("/nuevo-post")
@@ -158,6 +172,43 @@ public class PostController {
 		model.addAttribute("post", post);
 		
 		return "/posts/detalle-post";
+	}
+	
+	@GetMapping("/editar-post/{id}")
+	public String editarAutor(@PathVariable Long id, Model model, RedirectAttributes flash) {
+		Post post = null;
+		List<Categoria> categorias = categoriaService.findAllCategorias();
+		List<User> usuarios = userService.findAllUsers();
+		
+		if(id > 0) {
+			post = postService.findPostById(id);
+			
+			if(post == null) {
+				flash.addFlashAttribute("error", "El post no existe en la BBDD!!");
+				return "redirect:/index";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El post no existe en la BBDD!!");
+			return "redirect:/index";
+		}
+		
+		model.addAttribute("titulo", "Editar Post");
+		model.addAttribute("post", post);
+		model.addAttribute("categorias", categorias);
+		model.addAttribute("usuarios", usuarios);
+		
+		return "posts/crear-post";
+	}
+	
+	@GetMapping("/eliminar-post/{id}")
+	public String eliminarPrestamo(@PathVariable Long id, RedirectAttributes flash) {
+		
+		if (id > 0) {
+			postService.deletePostById(id);
+			flash.addFlashAttribute("success", "Post eliminado con exito");
+		}
+		
+		return "redirect:/listado-posts";
 	}
 	
 }
