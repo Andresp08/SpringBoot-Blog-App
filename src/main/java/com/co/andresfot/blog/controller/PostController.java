@@ -130,7 +130,7 @@ public class PostController {
 			return "redirect:/index";
 		}
 		
-		model.addAttribute("titulo", "Detalle del post " + post.getTitulo() + " ");
+		model.addAttribute("titulo", post.getTitulo());
 		model.addAttribute("post", post);
 		
 		return "/posts/detalle-post";
