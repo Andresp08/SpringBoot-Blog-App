@@ -17,9 +17,8 @@
 						<tr>
 							<th>#</th>
 							<th>Titulo</th>
-							<th>Contenido</th>
 							<th>Fecha creacion</th>
-							<th>Status</th>
+							<th>¿Publicado?</th>
 							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
@@ -28,10 +27,7 @@
 						<tr th:each="post : ${posts}">
 							<td th:text="${post.id}">Id</td>
 							<td th:text="${post.titulo}">Titulo</td>
-							<td>
-								<div class="contenido-post" th:utext="${post.contenido}"></div>
-							</td>
-							<td th:text="${#dates.format(post.fechaCreacion, 'dd-MM-yyyy')}">Fecha</td>
+							<td  th:text="${#dates.format(post.fechaCreacion, 'dd-MM-yyyy')}">Fecha</td>
 							<td th:text="${post.status} ? 'Si' : 'No'"></td>
 							<td>
 								<a  class="btn btn-outline-warning" 

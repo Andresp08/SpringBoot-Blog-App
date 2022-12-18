@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,6 +35,7 @@ import com.co.andresfot.blog.model.service.IUserService;
 
 @Controller
 @RequestMapping({"", "/", "index"})
+@SessionAttributes("post")
 public class PostController {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -88,6 +91,7 @@ public class PostController {
 			@RequestParam(name= "file") MultipartFile foto, 
 			@RequestParam(name = "categoria") Long idCategoria,
 			@RequestParam(name = "usuario") Long idUsuario,
+			SessionStatus status,
 			RedirectAttributes flash) {
 		
 		List<Categoria> categorias = categoriaService.findAllCategorias();
@@ -132,6 +136,7 @@ public class PostController {
 		}
 		
 		postService.savePost(post);
+		status.setComplete();
 		flash.addFlashAttribute("success", "Post guardado con exito!!");
 		
 		return "redirect:/index";
