@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -37,8 +35,6 @@ import com.co.andresfot.blog.model.service.IUserService;
 @RequestMapping({"", "/", "index"})
 @SessionAttributes("post")
 public class PostController {
-	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private IPostService postService;

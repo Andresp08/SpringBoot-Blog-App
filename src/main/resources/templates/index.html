@@ -14,8 +14,8 @@
 			<div th:if="${!posts.isEmpty()}" id="recipeCarousel"
 				class="carousel slide w-100" data-ride="carousel">
 				<div class="carousel-inner w-100 px-2" role="listbox">
-					<div th:each="post : ${posts}"
-						th:class="${post.id} == 3  ? 'carousel-item active' : 'carousel-item'">
+					<div th:each="post, iterador : ${posts}"
+						th:class="${iterador.first} ? 'carousel-item active' : 'carousel-item'">
 							<a th:href="@{/leer-post/} + ${post.id}" class="col-md-4">
 								<div class="card" style="max-height: 330px; min-height: 330px;">
 									<img class=" card-img-top img-fluid"

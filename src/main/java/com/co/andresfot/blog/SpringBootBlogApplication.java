@@ -8,8 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.co.andresfot.blog.model.service.IUploadFileService;
 
 @SpringBootApplication
-public class SpringBootBlogApplication implements CommandLineRunner{
-
+public class SpringBootBlogApplication //implements CommandLineRunner{
+	
+	{
 	@Autowired
 	IUploadFileService uploadService;
 	
@@ -17,10 +18,10 @@ public class SpringBootBlogApplication implements CommandLineRunner{
 		SpringApplication.run(SpringBootBlogApplication.class, args);
 	}
 
-	@Override
+	/*@Override
 	public void run(String... args) throws Exception {
 		uploadService.deleteAll();
 		uploadService.init();
-	}
+	}*/
 
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container my-4">
+
+		<h2 class="text-center" th:text="${titulo}"></h2>
+
+		<div class="col-md-8 mx-auto">
+			<form class="mt-5" th:action="@{/categorias/nueva-categoria}" th:object="${categoria}" method="POST">
+				<div class="form-group">
+					<label for="categoria">Categoria</label> 
+					<input type="text" class="form-control" id="categoria" th:field="*{categoria}"
+						aria-describedby="categoriaHelp" placeholder="Ingresa la nueva categoria"> <small
+						id="emailHelp" class="form-text text-muted">Por favor escribe el nombre de
+						la nueva categoria.</small>
+				</div>
+				<button type="submit" class="btn btn-success" th:text="'Guardar Categoría'">Guardar Categoría</button>
+			</form>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
