@@ -157,6 +157,9 @@ public class PostController {
 	public String leerPostPorId(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		
 		Post post = null;
+		
+		Post comentario = postService.findPostByIdWithComentarios(id);
+		
 		if(id > 0) {
 			post = postService.findPostById(id);
 			
@@ -171,6 +174,7 @@ public class PostController {
 		
 		model.addAttribute("titulo", post.getTitulo());
 		model.addAttribute("post", post);
+		model.addAttribute("comentario", comentario);
 		
 		return "/posts/detalle-post";
 	}

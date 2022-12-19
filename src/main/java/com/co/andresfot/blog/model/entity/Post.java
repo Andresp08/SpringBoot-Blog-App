@@ -62,7 +62,7 @@ public class Post implements Serializable{
 	private User user;
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Comentario> comentario;
+	private List<Comentario> comentarios;
 
 	public Post() {
 
@@ -137,12 +137,12 @@ public class Post implements Serializable{
 		this.user = usuario;
 	}
 
-	public List<Comentario> getComentario() {
-		return comentario;
+	public List<Comentario> getComentarios() {
+		return comentarios;
 	}
 
-	public void setComentario(List<Comentario> comentario) {
-		this.comentario = comentario;
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 }

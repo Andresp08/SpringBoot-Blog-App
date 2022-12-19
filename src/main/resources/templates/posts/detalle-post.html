@@ -104,27 +104,70 @@
 
 					<h3>Topics</h3>
 
-						<div class="row">
-							<div class="col">Topic 1</div>
-						</div>
-						
-						<div class="row">
-							<div class="col">Topic 1</div>
-						</div>
-						
-						<div class="row">
-							<div class="col">Topic 1</div>
-						</div>
-						
-						<div class="row">
-							<div class="col">Topic 1</div>
-						</div>
+					<div class="row">
+						<div class="col">Topic 1</div>
+					</div>
+
+					<div class="row">
+						<div class="col">Topic 1</div>
+					</div>
+
+					<div class="row">
+						<div class="col">Topic 1</div>
+					</div>
+
+					<div class="row">
+						<div class="col">Topic 1</div>
+					</div>
 
 				</div>
 
 			</div>
 		</div>
 		<!-- row -->
+
+		<!-- comentarios -->
+		<div class="row mt-5">
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-12 col-lg-12">
+						<div class="card text-dark">
+							<div class="card-body p-4">
+								<h2 class="mb-0">Comentarios</h2>
+								<p class="fw-light mb-4 pb-2">Comentarios del post</p>
+								
+								<p th:if="${#lists.isEmpty(post.comentarios)}"
+									class="text-dark m-4"
+									th:text="'No hay comentarios asignados para el post: ' + ${post.titulo}">
+								</p>
+
+								<div th:if="${not #lists.isEmpty(post.comentarios)}" class="d-flex flex-start mt-4"
+									th:each="comentario : ${post.comentarios}">
+									<p class="rounded-circle shadow-1-strong mr-3 badge badge-info p-4" 
+										th:text="${#strings.substring(comentario.nombre,0,1)}" style="font-size: 18px;"/>
+									<div>
+										<h6 class="fw-bold mb-1" th:text="${comentario.nombre}">Nombre</h6>
+										<div class="d-flex align-items-center mb-1">
+											<p class="mb-0 mr-2"
+												th:text="${#dates.format(comentario.fechaCreacion, 'dd-MM-yyyy')}">
+											</p>
+											<span class="badge badge-dark" th:text="'Fecha publicación'">Pending</span>
+										</div>
+										<p class="mb-0" th:text="${comentario.comentario}">comentario</p>
+									</div>
+								</div>
+							</div>
+
+							<hr class="my-0" />
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- roe -->
+
 	</div>
 
 	<footer th:replace="layout/layout :: footer"></footer>

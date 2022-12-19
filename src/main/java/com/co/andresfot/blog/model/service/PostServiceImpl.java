@@ -40,4 +40,10 @@ public class PostServiceImpl implements IPostService {
 		postDao.deleteById(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Post findPostByIdWithComentarios(Long id) {
+		return postDao.fetchPostByIdWithComentarios(id);
+	}
+
 }
