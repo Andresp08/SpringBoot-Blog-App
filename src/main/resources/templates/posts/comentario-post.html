@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container my-4">
+
+		<h2 class="text-center" th:text="${titulo}"></h2>
+
+		<div class="col-md-8 mx-auto" th:fragment="comentario">
+			<form th:action="@{/comentario-post}" th:object="${comentarios}" method="POST">
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input type="text"
+						class="form-control" id="nombre" placeholder="Nombre" th:field="*{nombre}"
+						th:value="${nombre}">
+				</div>
+				<div class="form-group">
+					<label for="email">Email </label> <input type="email"
+						class="form-control" id="email" placeholder="Enter email" th:field="*{email}"
+						th:value="${email}">
+				</div>
+				<div class="form-group">
+					<label for="comentario">Comentario</label>
+					<textarea class="form-control" id="comentario" rows="3" th:field="*{comentario}"
+						th:value="${comentario}"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="cliente">Post</label> <input id="post" name="post"
+						class="form-control "
+						th:value="${post.id}"
+						th:text="${post.titulo}"
+						disabled='disabled' />
+				</div>
+				<button type="submit" class="btn btn-success" th:text="'Guardar'">Submit</button>
+			</form>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

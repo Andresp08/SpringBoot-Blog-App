@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<h2 th:text="${titulo}" class="text-center mt-5 mb-3">title</h2>
+
+		<p th:if="${comentarios.isEmpty()}" th:text="'No hay comentarios para mostrar'"></p>
+		
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-success my-3" th:href="@{/comentarios/nuevo-comentario}" 
+				th:text="'Agregar comentario'"></a>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-12 mx-auto">
+				<table th:if="${!comentarios.isEmpty()}"
+					class="table table-striped text-center table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nombre</th>
+							<th>Email</th>
+							<th>Comentario</th>
+							<th>Post</th>
+							<th>Fecha Creación</th>
+							<th>Editar</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="comentario : ${comentarios}">
+							<td th:text="${comentario.id}">Id</td>
+							<td th:text="${comentario.nombre}">Nombres</td>
+							<td th:text="${comentario.email}">Email</td>
+							<td th:text="${comentario.comentario}">Comentario</td>
+							<td th:text="${comentario.post.titulo}">Comentario</td>
+							<td th:text="${#dates.format(comentario.fechaCreacion, 'dd-MM-yyyy')}">Comentario</td>
+							<td>
+								<a  class="btn btn-outline-warning" 
+									th:href="@{editar-comentario/} + ${comentario.id}"
+									th:text="'Editar'">
+								</a>
+							</td>
+							<td>
+								<a  class="btn btn-outline-danger" 
+									th:href="@{eliminar-comentario/} + ${comentario.id}"
+									th:text="'Eliminar'">
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

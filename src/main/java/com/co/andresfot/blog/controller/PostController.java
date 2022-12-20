@@ -24,9 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.co.andresfot.blog.model.entity.Categoria;
+import com.co.andresfot.blog.model.entity.Comentario;
 import com.co.andresfot.blog.model.entity.Post;
 import com.co.andresfot.blog.model.entity.User;
 import com.co.andresfot.blog.model.service.ICategoriaService;
+import com.co.andresfot.blog.model.service.IComentarioService;
 import com.co.andresfot.blog.model.service.IPostService;
 import com.co.andresfot.blog.model.service.IUploadFileService;
 import com.co.andresfot.blog.model.service.IUserService;
@@ -47,6 +49,9 @@ public class PostController {
 	
 	@Autowired
 	private IUploadFileService uploadFileService;
+	
+	@Autowired 
+	private IComentarioService comentarioService;
 	
 	@GetMapping("")
 	public String trendingPosts(Model model) {
@@ -174,9 +179,36 @@ public class PostController {
 		
 		model.addAttribute("titulo", post.getTitulo());
 		model.addAttribute("post", post);
+		model.addAttribute("comentarios", new Comentario());
 		model.addAttribute("comentario", comentario);
 		
 		return "/posts/detalle-post";
+	}
+	
+	@PostMapping("/comentario-post")
+	public String comentarioPost(@RequestParam(name = "post", required = false) Long postId,
+			@Valid Comentario comentario, BindingResult result, Model model, SessionStatus status,
+			RedirectAttributes flash) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Agregar nuevo comentario");
+			model.addAttribute("comentarios", comentario);
+
+			return "/comentarios/nuevo-comentario";
+		}
+		
+		if (postId == null) {
+			model.addAttribute("titulo", "Agregar nuevo comentario");
+			model.addAttribute("error", "Error: el id no puede ser cero");
+			return "/posts/comentario-post";
+		}
+		
+		Post post = postService.findPostById(postId);
+		comentario.setPost(post);
+		
+		comentarioService.saveComentario(comentario);		
+		
+		return "/posts/comentario-post";
 	}
 	
 	@GetMapping("/editar-post/{id}")
@@ -217,3 +249,4 @@ public class PostController {
 	}
 	
 }
+
