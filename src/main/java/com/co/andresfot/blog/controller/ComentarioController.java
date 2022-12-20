@@ -61,7 +61,7 @@ public class ComentarioController {
 			RedirectAttributes flash) {
 
 		List<Post> posts = postService.findAllPosts();
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute("comentario", comentario);
 			model.addAttribute("posts", posts);
@@ -78,17 +78,17 @@ public class ComentarioController {
 
 		return "redirect:/comentarios/listado-comentarios";
 	}
-	
+
 	@GetMapping("/editar-comentario/{id}")
 	public String editarComentario(@PathVariable Long id, Model model, RedirectAttributes flash) {
-		
+
 		List<Post> posts = postService.findAllPosts();
 		Comentario comentario = null;
-		
-		if(id > 0) {
+
+		if (id > 0) {
 			comentario = comentarioService.findComentarioById(id);
-			
-			if(comentario == null) {
+
+			if (comentario == null) {
 				flash.addFlashAttribute("error", "El comentario no existe en la BBDD!!");
 				return "redirect:/comentarios/listado-comentarios";
 			}
@@ -96,11 +96,54 @@ public class ComentarioController {
 			flash.addFlashAttribute("error", "El comentario no existe en la BBDD!!");
 			return "redirect:/comentarios/listado-comentarios";
 		}
-		
+
 		model.addAttribute("titulo", "Editar Comentario");
 		model.addAttribute("comentario", comentario);
 		model.addAttribute("posts", posts);
-		
+
+		return "comentarios/nuevo-comentario";
+	}
+
+	@GetMapping("/comentario-post/{id}")
+	public String AgregarComentarioAPost(@PathVariable Long id, Model model, RedirectAttributes flash) {
+
+		Post post = postService.findPostById(id);
+
+		Comentario comentario = new Comentario();
+
+		comentario.setPost(post);
+
+		model.addAttribute("titulo", "Editar Comentario");
+		model.addAttribute("comentario", comentario);
+
+		return "comentarios/comentario-post-id";
+	}
+
+	@PostMapping("/comentario-post")
+	public String guardarComentarioPost(@Valid Comentario comentario, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "comentarios/comentario-post-id";
+
+		} else {
+			comentarioService.saveComentario(comentario);
+			return "redirect:/leer-post/" + comentario.getPost().getId();
+		}
+	}
+
+	@GetMapping("/eliminar-comentario/{id}")
+	public String eliminarComentario(@PathVariable Long id, Model model, RedirectAttributes flash) {
+		if (id > 0) {
+
+			comentarioService.deleteComentarioById(id);
+
+		} else {
+			flash.addFlashAttribute("error", "El comentario no existe en la BBDD!!");
+			return "redirect:/comentarios/listado-comentarios";
+		}
+
+		flash.addFlashAttribute("success", "Comentario eliminado con exito!!");
+
 		return "comentarios/nuevo-comentario";
 	}
 

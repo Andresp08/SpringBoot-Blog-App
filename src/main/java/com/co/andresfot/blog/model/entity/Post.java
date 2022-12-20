@@ -145,4 +145,13 @@ public class Post implements Serializable{
 		this.comentarios = comentarios;
 	}
 
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", titulo=" + titulo + ", contenido=" + contenido + ", imagen=" + imagen
+				+ ", fechaCreacion=" + fechaCreacion + ", status=" + status + ", categoria=" + categoria + ", user="
+				+ user + ", comentarios=" + comentarios + "]";
+	}
+	
+	
+
 }

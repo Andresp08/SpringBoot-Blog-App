@@ -57,9 +57,11 @@ public class PostController {
 	public String trendingPosts(Model model) {
 		 
 		List<Post> posts = postService.findAllPosts();
+		List<Categoria> categorias = categoriaService.findAllCategorias();
 		
 		model.addAttribute("titulo", "Trending Posts");
 		model.addAttribute("posts", posts);
+		model.addAttribute("categorias", categorias);
 		
 		return "index";
 	}
@@ -163,7 +165,9 @@ public class PostController {
 		
 		Post post = null;
 		
-		Post comentario = postService.findPostByIdWithComentarios(id);
+		Post comentarios = postService.findPostByIdWithComentarios(id);
+		
+		List<Categoria> categorias = categoriaService.findAllCategorias();
 		
 		if(id > 0) {
 			post = postService.findPostById(id);
@@ -179,8 +183,8 @@ public class PostController {
 		
 		model.addAttribute("titulo", post.getTitulo());
 		model.addAttribute("post", post);
-		model.addAttribute("comentarios", new Comentario());
-		model.addAttribute("comentario", comentario);
+		model.addAttribute("comentario", comentarios);
+		model.addAttribute("categorias", categorias);
 		
 		return "/posts/detalle-post";
 	}
@@ -192,15 +196,15 @@ public class PostController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Agregar nuevo comentario");
-			model.addAttribute("comentarios", comentario);
+			model.addAttribute("comentario", comentario);
 
-			return "/comentarios/nuevo-comentario";
+			return "redirect:/comentarios/nuevo-comentario";
 		}
 		
 		if (postId == null) {
 			model.addAttribute("titulo", "Agregar nuevo comentario");
 			model.addAttribute("error", "Error: el id no puede ser cero");
-			return "/posts/comentario-post";
+			return "redirect:/comentarios/nuevo-comentario";
 		}
 		
 		Post post = postService.findPostById(postId);
@@ -208,7 +212,7 @@ public class PostController {
 		
 		comentarioService.saveComentario(comentario);		
 		
-		return "/posts/comentario-post";
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/editar-post/{id}")

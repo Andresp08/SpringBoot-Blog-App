@@ -8,8 +8,8 @@
 
 		<h2 class="text-center" th:text="${titulo}"></h2>
 
-		<div class="col-md-8 mx-auto" th:fragment="comentario">
-			<form th:action="@{/comentario-post}" th:object="${comentarios}" method="POST">
+		<div class="col-md-8 mx-auto">
+			<form th:action="@{/comentarios/comentario-post}" th:object="${comentario}" method="POST">
 				<div class="form-group">
 					<label for="nombre">Nombre</label> <input type="text"
 						class="form-control" id="nombre" placeholder="Nombre" th:field="*{nombre}"
@@ -22,15 +22,15 @@
 				</div>
 				<div class="form-group">
 					<label for="comentario">Comentario</label>
-					<textarea class="form-control" id="comentario" rows="3" th:field="*{comentario}"
-						th:value="${comentario}"></textarea>
+					<textarea class="form-control" id="comentario" rows="3" th:field="*{comentario}"></textarea>
 				</div>
-				<div class="form-group">
-					<label for="cliente">Post</label> <input id="post" name="post"
+				<div class="form-group d-none">
+					<label for="cliente">Post</label> <input type="hidden" id="post"
 						class="form-control "
-						th:value="${post.id}"
-						th:text="${post.titulo}"
-						disabled='disabled' />
+						th:value="${comentario.post.id}"
+						disabled='disabled'
+						name="post"
+						/>
 				</div>
 				<button type="submit" class="btn btn-success" th:text="'Guardar'">Submit</button>
 			</form>

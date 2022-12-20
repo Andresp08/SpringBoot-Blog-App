@@ -96,6 +96,11 @@ input[type=checkbox] {
     font-weight: 900;
 }
 
+.list-group-item.active{
+	background-color: #FD841F!important;
+	border: #FD841F!important;
+}
+
 .btn-success{
 	background-color: #FD841F;
     border: #FD841F;

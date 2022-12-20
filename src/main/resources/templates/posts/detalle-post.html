@@ -104,20 +104,12 @@
 
 					<h3>Topics</h3>
 
-					<div class="row">
-						<div class="col">Topic 1</div>
-					</div>
-
-					<div class="row">
-						<div class="col">Topic 1</div>
-					</div>
-
-					<div class="row">
-						<div class="col">Topic 1</div>
-					</div>
-
-					<div class="row">
-						<div class="col">Topic 1</div>
+					<div class="row list-group"
+						th:each="categoria, iterador : ${categorias}">
+						<a
+							th:class="${iterador.first} ? 'list-group-item active' : 'list-group-item'"
+							href="#" th:text="${categoria.categoria}">
+						</a>
 					</div>
 
 				</div>
@@ -161,7 +153,13 @@
 
 								<!-- COMENTARIOS -->
 
-								<div th:replace="posts/comentario-post :: comentario"></div>
+								<!--<div th:replace="posts/comentario-post :: comentario"></div>-->
+								
+								<div class="mt-5">
+									<a class="btn btn-success"
+									th:href="@{/comentarios/comentario-post/} + ${post.id}" 
+									th:text="'Hacer un comentario'"></a>
+								</div>
 
 							</div>
 							<!-- card -->
