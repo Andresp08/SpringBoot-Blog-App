@@ -36,83 +36,43 @@
 
 			<div class="col-md-4">
 
-				<h3>Popular</h3>
+				<h2>Popular</h2>
 
 				<div class="blogs">
 
-					<div class="row align-items-center my-2">
+					<a class="row align-items-center my-2 entrada"
+						th:each="post : ${postsPopulares}"
+						th:href="@{/leer-post/} + ${post.id}"
+						th:if="${post.status}" 
+						style="padding: 10px;">
 						<div class="col-4">
 							<img class="img img-fluid w-100"
 								th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}" />
 						</div>
 						<div class="col-8">
-							<div class="contenido-post" th:utext="${post.contenido}">
-								Contenido del Post</div>
+							<h4 th:text="${post.titulo}" style="font-size: 16px;"></h4>
+							<div class="d-flex align-items-center justify-content-between">
+								<div
+									class="d-flex flex-row align-items-center justify-content-center">
+									<i class="fa-solid fa-calendar px-2"></i>
+									<p class="m-0"
+										th:text="${#dates.format(post.fechaCreacion, 'dd-MMM-yyyy')}"></p>
+								</div>
+
+								<div
+									class="d-flex flex-row align-items-center justify-content-center">
+									<i class="fa-solid fa-user px-2"></i>
+									<p class="m-0" th:text="${post.user.nombres}"></p>
+								</div>
+							</div>
 						</div>
-					</div>
+					</a>
 					<!-- row -->
-
-					<div class="row my-2 align-items-center">
-						<div class="col-4">
-							<img class="img img-fluid w-100"
-								th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}" />
-						</div>
-						<div class="col-8">
-							<div class="contenido-post" th:utext="${post.contenido}">
-								Contenido del Post</div>
-						</div>
-					</div>
-					<!-- row -->
-
-					<div class="row align-items-center my-2">
-						<div class="col-4">
-							<img class="img img-fluid w-100"
-								th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}" />
-						</div>
-						<div class="col-8">
-							<div class="contenido-post" th:utext="${post.contenido}">
-								Contenido del Post</div>
-						</div>
-					</div>
-
-					<div class="row align-items-center my-2">
-						<div class="col-4">
-							<img class="img img-fluid w-100"
-								th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}" />
-						</div>
-						<div class="col-8">
-							<div class="contenido-post" th:utext="${post.contenido}">
-								Contenido del Post</div>
-						</div>
-					</div>
-
-					<div class="row align-items-center my-2">
-						<div class="col-4">
-							<img class="img img-fluid w-100"
-								th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}" />
-						</div>
-						<div class="col-8">
-							<div class="contenido-post" th:utext="${post.contenido}">
-								Contenido del Post</div>
-						</div>
-					</div>
-
 				</div>
 				<!-- row padre -->
 
-				<div class="topics mt-5">
-
-					<h3>Topics</h3>
-
-					<div class="row list-group"
-						th:each="categoria, iterador : ${categorias}">
-						<a
-							th:class="${iterador.first} ? 'list-group-item active' : 'list-group-item'"
-							href="#" th:text="${categoria.categoria}">
-						</a>
-					</div>
-
-				</div>
+				<!-- categorias -->
+				<div th:replace="layout/categorias-lista :: categorias-list"></div>
 
 			</div>
 		</div>
@@ -154,11 +114,11 @@
 								<!-- COMENTARIOS -->
 
 								<!--<div th:replace="posts/comentario-post :: comentario"></div>-->
-								
+
 								<div class="mt-5">
 									<a class="btn btn-success"
-									th:href="@{/comentarios/comentario-post/} + ${post.id}" 
-									th:text="'Hacer un comentario'"></a>
+										th:href="@{/comentarios/comentario-post/} + ${post.id}"
+										th:text="'Hacer un comentario'"></a>
 								</div>
 
 							</div>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container" th:fragment="categorias-list">
+		<div class="topics mt-2 p-3">
+
+			<h2 class="text-center">Categorias</h2>
+
+			<div class="row list-group"
+				th:each="categoria, iterador : ${categorias}">
+				<a
+					th:class="${iterador.first} ? 'list-group-item active' : 'list-group-item'"
+					th:href="@{/posts-categoria/} + ${categoria.id}"
+					th:text="${categoria.categoria}"> </a>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

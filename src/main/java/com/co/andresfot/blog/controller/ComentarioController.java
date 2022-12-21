@@ -113,7 +113,7 @@ public class ComentarioController {
 
 		comentario.setPost(post);
 
-		model.addAttribute("titulo", "Editar Comentario");
+		model.addAttribute("titulo", "Hacer un comentario al post: " + post.getTitulo());
 		model.addAttribute("comentario", comentario);
 
 		return "comentarios/comentario-post-id";

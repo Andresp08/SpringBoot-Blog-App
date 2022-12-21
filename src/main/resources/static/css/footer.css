@@ -57,6 +57,11 @@ input[type=checkbox] {
     accent-color: #FD841F;
 }
 
+.badge-success {
+    color: #fff;
+    background-color: #FD841F!important;
+}
+
 /*Post*/
 .contenido-post>p {
 	font-size: 16px !important;

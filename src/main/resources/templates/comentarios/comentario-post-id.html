@@ -6,7 +6,7 @@
 
 	<div class="container my-4">
 
-		<h2 class="text-center" th:text="${titulo}"></h2>
+		<h2 class="text-center mt-3 mb-5" th:text="${titulo}"></h2>
 
 		<div class="col-md-8 mx-auto">
 			<form th:action="@{/comentarios/comentario-post}" th:object="${comentario}" method="POST">

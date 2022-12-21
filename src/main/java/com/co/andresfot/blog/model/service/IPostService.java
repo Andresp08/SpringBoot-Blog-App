@@ -14,6 +14,10 @@ public List<Post> findAllPosts();
 	
 	public Post findPostByIdWithComentarios(Long id);
 	
+	public List<Post> findPostByCategoria(Long id);
+	
+	public List<Post> findDistintcPostsById(Long id);
+	
 	public void deletePostById(Long id);
 	
 }

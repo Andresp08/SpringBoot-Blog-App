@@ -6,7 +6,7 @@
 
 	<div class="container my-5">
 
-		<h2 class="text-center my-3" th:text="${titulo}">Titulo</h2>
+		<h2 class="text-center my-3" th:text="${tituloTrending}">Titulo</h2>
 
 		<p th:if="${posts.isEmpty()}" th:text="'No hay posts para mostrar'"></p>
 
@@ -16,10 +16,12 @@
 				<div class="carousel-inner w-100 px-2" role="listbox">
 					<div th:each="post, iterador : ${posts}"
 						th:class="${iterador.first} ? 'carousel-item active' : 'carousel-item'">
-						<a th:href="@{/leer-post/} + ${post.id}" class="col-md-4">
+						<a th:if="${post.status}" th:href="@{/leer-post/} + ${post.id}"
+							class="col-md-4">
 							<div class="card" style="max-height: 330px; min-height: 330px;">
 								<img class="card-img-top img-fluid w-100"
-									th:src="@{'/uploads/' + ${post.imagen}}" th:alt="${post.titulo}"
+									th:src="@{'/uploads/' + ${post.imagen}}"
+									th:alt="${post.titulo}"
 									style="min-height: 180px; max-height: 190px;">
 								<div class="card-body texto-recortado">
 									<h5
@@ -44,8 +46,7 @@
 									<!-- flex -->
 								</div>
 								<!-- card-body -->
-							</div>
-							<!-- card -->
+							</div> <!-- card -->
 						</a>
 						<!-- col -->
 					</div>
@@ -71,50 +72,24 @@
 			<div class="col-md-8">
 				<!-- Entradas de Blog -->
 				<h2 class="text-center">Entradas Recientes</h2>
-				<div class="row entrada mb-5">
-					<div class="col-md-5">
-						<img
-							src="https://opengraph.githubassets.com/e1928ebc604538d5d919dbea380499c7d0b85f23fe7e54ac674fb49067836012/OpenAPITools/openapi-generator/issues/1646"
-							class="img-fluid" />
-					</div>
-					<div class="col-md-7">
-						<h3 class="my-2">Titulo</h3>
-						<p class="meta">
-							Escrito el: <span>31/10/2022</span> por <span>Autor</span>
-						</p>
-						<div class="contenido-post mb-2">Contenido del Post</div>
-						<a href="#" class="btn btn-success px-5 py-2">Leer más..</a>
-					</div>
-				</div>
-				<!-- entrada -->
+				
+				<div th:replace="layout/tarjeta-post :: tarjeta-post"></div>
 
 			</div>
 			<!-- col-md-8 -->
 
 			<div class="col-md-4 mb-2">
-				<h2 class="text-center">Buscar un post</h2>
+				<h2 class="text-center">Contamos con</h2>
 				<div class="busqueda p-3">
-					<form>
-						<div class="form-group">
-							<input type="text" class="form-control" id="buscar"
-								placeholder="Buscar un blog">
-						</div>
-					</form>
+					<p class="text-center"> Un total de
+						<span th:text="'+' + ${posts.size}" class="badge badge-success "></span>
+						Posts escritos!!
+					</p>
 				</div>
 				<!-- busqueda -->
 
-				<div class="topics mt-2 p-3">
-
-					<h2 class="text-center">Categorias</h2>
-
-					<div class="row list-group"
-						th:each="categoria, iterador : ${categorias}">
-						<a
-							th:class="${iterador.first} ? 'list-group-item active' : 'list-group-item'"
-							href="#" th:text="${categoria.categoria}">
-						</a>
-					</div>
-				</div>
+				<!-- categorias -->
+				<div th:replace="layout/categorias-lista :: categorias-list"></div>
 			</div>
 
 		</div>

@@ -46,4 +46,14 @@ public class PostServiceImpl implements IPostService {
 		return postDao.fetchPostByIdWithComentarios(id);
 	}
 
+	@Override
+	public List<Post> findPostByCategoria(Long id) {
+		return postDao.fetchPostByCategory(id);
+	}
+
+	@Override
+	public List<Post> findDistintcPostsById(Long id) {
+		return postDao.findDistinctPostsById(id);
+	}
+
 }
