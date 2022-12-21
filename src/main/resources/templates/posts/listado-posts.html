@@ -5,9 +5,14 @@
 	<header th:replace="layout/layout :: header"></header>
 
 	<div class="container">
-		<h2 th:text="${titulo}" class="text-center mt-5 mb-5">title</h2>
+		<h2 th:text="${titulo}" class="text-center mt-5 mb-3">title</h2>
 
 		<p th:if="${posts.isEmpty()}" th:text="'No hay posts para mostrar'"></p>
+		
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-success my-3" th:href="@{/nuevo-post}" 
+				th:text="'Agregar post'"></a>
+		</div>
 
 		<div class="row d-flex justify-content-center">
 			<div class="col-12 mx-auto">
