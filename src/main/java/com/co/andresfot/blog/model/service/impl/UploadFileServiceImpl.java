@@ -1,4 +1,4 @@
-package com.co.andresfot.blog.model.service;
+package com.co.andresfot.blog.model.service.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.co.andresfot.blog.model.service.IUploadFileService;
 
 @Service
 public class UploadFileServiceImpl implements IUploadFileService{

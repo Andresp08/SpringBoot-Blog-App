@@ -1,4 +1,4 @@
-package com.co.andresfot.blog.model.service;
+package com.co.andresfot.blog.model.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.co.andresfot.blog.model.dao.ICategoriaDao;
 import com.co.andresfot.blog.model.entity.Categoria;
+import com.co.andresfot.blog.model.service.ICategoriaService;
 
 @Service
 public class CategoriaServiceImpl implements ICategoriaService {

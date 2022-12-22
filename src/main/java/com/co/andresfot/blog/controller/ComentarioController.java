@@ -1,6 +1,8 @@
 package com.co.andresfot.blog.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -19,8 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.co.andresfot.blog.model.entity.Comentario;
 import com.co.andresfot.blog.model.entity.Post;
+import com.co.andresfot.blog.model.entity.UserLogin;
 import com.co.andresfot.blog.model.service.IComentarioService;
 import com.co.andresfot.blog.model.service.IPostService;
+import com.co.andresfot.blog.model.service.IUserService;
 
 @Controller
 @RequestMapping("/comentarios")
@@ -29,6 +33,9 @@ public class ComentarioController {
 
 	@Autowired
 	private IComentarioService comentarioService;
+	
+	@Autowired
+	private IUserService userService;
 
 	@Autowired
 	private IPostService postService;
@@ -79,6 +86,39 @@ public class ComentarioController {
 		return "redirect:/comentarios/listado-comentarios";
 	}
 
+	@GetMapping("/comentario-post/{id}")
+	public String AgregarComentarioAPost(@PathVariable Long id, Model model, 
+			RedirectAttributes flash, Principal principal) {
+
+		Post post = postService.findPostById(id);
+
+		Comentario comentario = new Comentario();
+		
+		Optional<UserLogin> user = userService.findFirstByUsername(principal.getName());
+		
+		comentario.setNombre(user.get().getUsername());
+		comentario.setEmail(user.get().getEmail());
+		
+		comentario.setPost(post);
+
+		model.addAttribute("titulo", "Hacer un comentario al post: " + post.getTitulo());
+		model.addAttribute("comentario", comentario);
+
+		return "comentarios/comentario-post-id";
+	}
+
+	@PostMapping("/comentario-post")
+	public String guardarComentarioPost(@Valid Comentario comentario, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "comentarios/comentario-post-id";
+
+		} else {
+			comentarioService.saveComentario(comentario);
+			return "redirect:/leer-post/" + comentario.getPost().getId();
+		}
+	}
+	
 	@GetMapping("/editar-comentario/{id}")
 	public String editarComentario(@PathVariable Long id, Model model, RedirectAttributes flash) {
 
@@ -104,39 +144,10 @@ public class ComentarioController {
 		return "comentarios/nuevo-comentario";
 	}
 
-	@GetMapping("/comentario-post/{id}")
-	public String AgregarComentarioAPost(@PathVariable Long id, Model model, RedirectAttributes flash) {
-
-		Post post = postService.findPostById(id);
-
-		Comentario comentario = new Comentario();
-
-		comentario.setPost(post);
-
-		model.addAttribute("titulo", "Hacer un comentario al post: " + post.getTitulo());
-		model.addAttribute("comentario", comentario);
-
-		return "comentarios/comentario-post-id";
-	}
-
-	@PostMapping("/comentario-post")
-	public String guardarComentarioPost(@Valid Comentario comentario, BindingResult bindingResult) {
-
-		if (bindingResult.hasErrors()) {
-			return "comentarios/comentario-post-id";
-
-		} else {
-			comentarioService.saveComentario(comentario);
-			return "redirect:/leer-post/" + comentario.getPost().getId();
-		}
-	}
-
 	@GetMapping("/eliminar-comentario/{id}")
 	public String eliminarComentario(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		if (id > 0) {
-
 			comentarioService.deleteComentarioById(id);
-
 		} else {
 			flash.addFlashAttribute("error", "El comentario no existe en la BBDD!!");
 			return "redirect:/comentarios/listado-comentarios";
@@ -144,7 +155,7 @@ public class ComentarioController {
 
 		flash.addFlashAttribute("success", "Comentario eliminado con exito!!");
 
-		return "comentarios/nuevo-comentario";
+		return "redirect:/comentarios/listado-comentarios";
 	}
 
 }

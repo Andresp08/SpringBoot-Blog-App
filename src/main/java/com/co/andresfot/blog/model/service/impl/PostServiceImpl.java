@@ -1,4 +1,4 @@
-package com.co.andresfot.blog.model.service;
+package com.co.andresfot.blog.model.service.impl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.co.andresfot.blog.model.dao.IPostDao;
 import com.co.andresfot.blog.model.entity.Post;
+import com.co.andresfot.blog.model.service.IPostService;
 
 @Service
 public class PostServiceImpl implements IPostService {

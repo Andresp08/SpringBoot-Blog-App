@@ -1,6 +1,7 @@
-package com.co.andresfot.blog.model.service;
+package com.co.andresfot.blog.model.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.co.andresfot.blog.model.dao.IUserDao;
 import com.co.andresfot.blog.model.entity.UserLogin;
+import com.co.andresfot.blog.model.service.IUserService;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -37,6 +39,16 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	public void deleteUserById(Long id) {
 		userDao.deleteById(id);
+	}
+
+	@Override
+	public UserLogin findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
+
+	@Override
+	public Optional<UserLogin> findFirstByUsername(String username) {
+		return userDao.findFirstByUsername(username);
 	}
 
 }
