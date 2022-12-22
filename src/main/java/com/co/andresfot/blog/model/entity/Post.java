@@ -36,6 +36,7 @@ public class Post implements Serializable{
 
 	@NotEmpty
 	@NotBlank
+	@Column(length = 150)
 	private String titulo;
 
 	@NotEmpty

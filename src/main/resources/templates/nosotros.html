@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container my-4">
+		<h2 class="text-center">Nosotros</h2>
+
+		<div class="jumbotron my-4">
+			<h2 class="display-6">Hello, world!</h2>
+			<p class="lead display-6">Soft News en un blog corportativo donde puedes estar informado a cerca 
+			de los ultimos eventos tecnologicos, así como hacer comentarios y publicar nuevos posts!! </p>
+			<hr class="my-4">
+			<p>Hecho por Andrés Pardo - 🧡</p>
+			<p class="lead">
+				<a class="btn btn-success btn-lg" href="@{/}" role="button">Quiero empezar!!</a>
+			</p>
+		</div>
+
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

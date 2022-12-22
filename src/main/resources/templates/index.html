@@ -18,16 +18,16 @@
 						th:class="${iterador.first} ? 'carousel-item active' : 'carousel-item'">
 						<a th:if="${post.status}" th:href="@{/leer-post/} + ${post.id}"
 							class="col-md-4">
-							<div class="card" style="max-height: 330px; min-height: 330px;">
+							<div class="card" style="max-height: 340px; min-height: 340px;">
 								<img class="card-img-top img-fluid w-100"
 									th:src="@{'/uploads/' + ${post.imagen}}"
 									th:alt="${post.titulo}"
 									style="min-height: 180px; max-height: 190px;">
 								<div class="card-body texto-recortado">
-									<h5
+									<h6
 										class="card-title text-center font-weight-bold text-uppercase"
-										th:text="${post.titulo}">Titulo del Post</h5>
-									<div class="contenido-post" th:utext="${post.contenido}">
+										th:text="${post.titulo}">Titulo del Post</h6>
+									<div class="contenido-post tarjeta-post" th:utext="${post.contenido}">
 										Contenido del Post</div>
 									<div class="d-flex align-items-center justify-content-between">
 										<div

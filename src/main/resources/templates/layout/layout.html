@@ -9,7 +9,7 @@
 <link rel="stylesheet" th:href="@{/css/carousel.css}" />
 <link th:rel="stylesheet"
 	th:href="@{/assets/summernote/summernote-bs4.css}" />
-<link rel="stylesheet" th:href="@{/css/footer.css}" />
+<link rel="stylesheet" th:href="@{/css/estilos.css}" />
 </head>
 <body>
 
@@ -33,13 +33,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active"
-						aria-current="page" th:href="@{/nuevo-post}">Nosotros</a>
+						aria-current="page" th:href="@{/nosotros}">Nosotros</a>
 					</li>
 					
-					<li class="nav-item">
-						<a class="nav-link active"
-						aria-current="page" th:href="@{/nuevo-post}">Servicios</a>
-					</li>
 					<li class="nav-item dropdown">
 						<a
 						class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton"
@@ -75,7 +71,10 @@
 	<footer th:fragment="footer" class="container-fluid footer py-3">
 
 		<p class="text-center text-white font-weight-bold">Todos los
-			derechos reservados</p>
+			derechos reservados - 
+			<a class="navbar-brand brand-text" th:href="@{/}"> Soft<span>News</span>
+			</a> 
+		</p>
 
 		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script th:src="@{/js/popper.min.js}"></script>

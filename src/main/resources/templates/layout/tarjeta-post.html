@@ -19,16 +19,15 @@
 						th:alt="${post.titulo}" class="img-fluid img-thumbnail w-100" />
 				</div>
 				<div class="col-md-7" th:if="${post.status}">
-					<h3 class="my-2" th:text="${post.titulo}">Titulo</h3>
+					<h5 class="my-2" th:text="${post.titulo}">Titulo</h5>
 					<p class="meta">
 						Escrito el: <span
 							th:text="${#dates.format(post.fechaCreacion, 'dd-MMM-yyyy')}">fecha</span>
 						por <span th:text="${post.user.nombres}">Autor</span>
 					</p>
-					<div class="contenido-post mb-2" th:utext="${post.contenido}">Contenido
-						del Post</div>
+					<div class="contenido-post tarjeta-post" th:utext="${post.contenido}">Contenido del Post</div>
 					<a th:href="@{/leer-post/} + ${post.id}"
-						class="btn btn-success px-5 py-2">Leer más..</a>
+						class="btn btn-success px-5 py-2 mt-4">Leer más..</a>
 				</div>
 				<div th:if="${!post.status}">El post se mostrará cuando haya sido publicado!!</div>
 			</div>
