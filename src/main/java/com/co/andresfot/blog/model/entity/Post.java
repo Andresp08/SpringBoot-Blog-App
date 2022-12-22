@@ -60,7 +60,7 @@ public class Post implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private UserLogin user;
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Comentario> comentarios;
@@ -130,11 +130,11 @@ public class Post implements Serializable{
 		this.categoria = categoria;
 	}
 
-	public User getUser() {
+	public UserLogin getUser() {
 		return user;
 	}
 
-	public void setUser(User usuario) {
+	public void setUser(UserLogin usuario) {
 		this.user = usuario;
 	}
 

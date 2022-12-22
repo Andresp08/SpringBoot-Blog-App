@@ -112,16 +112,20 @@ input[type=checkbox] {
 }
 
 .btn-success{
-	background-color: #FD841F;
-    border: #FD841F;
+	background-color: #FD841F!important;
+    border: #FD841F!important;
     color: #FFF;
     font-size: 15px;
 }
 
 .btn-success:hover{
-	background-color: #FD841F;
-    border: #FD841F;
+	background-color: #FD841F!important;
+    border: #FD841F!important;
     color: #FFF;
+}
+
+#drop{
+	width: 10px!important;
 }
 
 .footer {

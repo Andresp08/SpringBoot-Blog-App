@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.co.andresfot.blog.model.dao.IUserDao;
-import com.co.andresfot.blog.model.entity.User;
+import com.co.andresfot.blog.model.entity.UserLogin;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -17,19 +17,19 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<User> findAllUsers() {
+	public List<UserLogin> findAllUsers() {
 		return userDao.findAll();
 	}
 
 	@Override
 	@Transactional
-	public void saveUser(User user) {
+	public void saveUser(UserLogin user) {
 		userDao.save(user);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public User findUserById(Long id) {
+	public UserLogin findUserById(Long id) {
 		return userDao.findById(id).orElse(null);
 	}
 

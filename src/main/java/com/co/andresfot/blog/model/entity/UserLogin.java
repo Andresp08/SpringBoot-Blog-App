@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserLogin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +58,7 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Post> posts;
 	
-	public User() {}
+	public UserLogin() {}
 
 	public Long getId() {
 		return id;
@@ -114,6 +114,14 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }

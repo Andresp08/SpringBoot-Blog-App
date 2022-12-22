@@ -29,7 +29,7 @@ import com.co.andresfot.blog.model.dao.IPostDao;
 import com.co.andresfot.blog.model.entity.Categoria;
 import com.co.andresfot.blog.model.entity.Comentario;
 import com.co.andresfot.blog.model.entity.Post;
-import com.co.andresfot.blog.model.entity.User;
+import com.co.andresfot.blog.model.entity.UserLogin;
 import com.co.andresfot.blog.model.service.ICategoriaService;
 import com.co.andresfot.blog.model.service.IComentarioService;
 import com.co.andresfot.blog.model.service.IPostService;
@@ -107,7 +107,7 @@ public class PostController {
 	public String crearPost(Model model) {
 
 		List<Categoria> categorias = categoriaService.findAllCategorias();
-		List<User> usuarios = userService.findAllUsers();
+		List<UserLogin> usuarios = userService.findAllUsers();
 
 		model.addAttribute("titulo", "Crear nuevo post");
 		model.addAttribute("post", new Post());
@@ -122,10 +122,10 @@ public class PostController {
 			@RequestParam(name = "usuario") Long idUsuario, SessionStatus status, RedirectAttributes flash) {
 
 		List<Categoria> categorias = categoriaService.findAllCategorias();
-		List<User> usuarios = userService.findAllUsers();
+		List<UserLogin> usuarios = userService.findAllUsers();
 
 		Categoria categoria = categoriaService.findCategoriaById(idCategoria);
-		User usuario = userService.findUserById(idUsuario);
+		UserLogin usuario = userService.findUserById(idUsuario);
 
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Crear nuevo post");
@@ -245,7 +245,7 @@ public class PostController {
 	public String editarAutor(@PathVariable Long id, Model model, RedirectAttributes flash) {
 		Post post = null;
 		List<Categoria> categorias = categoriaService.findAllCategorias();
-		List<User> usuarios = userService.findAllUsers();
+		List<UserLogin> usuarios = userService.findAllUsers();
 
 		if (id > 0) {
 			post = postService.findPostById(id);

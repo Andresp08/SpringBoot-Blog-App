@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+		
+		<h2 class="text-center" style="color: #FD841F;">Acceso denegado</h2>
+
+		<div class="jumbotron my-4">
+			<h2 class="display-6" style="color: #FD841F;" >Error: Acceso Denegado!</h2>
+			<p class="lead display-6">
+				Los sentimos <span th:text="${#authentication.name}" class="font-weight-bold">
+				</span>, NO
+					tienes permisos para acceder a este recurso.
+			</p>
+			<hr class="my-4">
+			<p>Hecho por Andrés Pardo - 🧡</p>
+			<p class="lead">
+				<a class="btn btn-success btn-lg" th:href="@{/}" role="button">Regresar!!</a>
+			</p>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
